@@ -1,9 +1,9 @@
-import React from 'react'
 import Title from '../../Components/Title/Title'
 import Task from '../../Components/Task/Task'
 import Add from '../../Components/Add/Add'
 import { useContext, useEffect, useState } from 'react'
 import { ContextData } from '../../App'
+import Counter from '../../Components/Counter/Counter'
 
 const TodoList = () => {
   const [todoData, setTodoData] = useContext(ContextData)
@@ -23,15 +23,13 @@ const TodoList = () => {
     if (savedTasks) {
       setTodoData(JSON.parse(savedTasks))
     }
-    setAnimateStartRender(prev => (prev = true))
-
-    console.log(todoData)
+    setAnimateStartRender(true)
   }, [])
+
   return (
     <div
-      className={`${
-        setAnimateStartRender ? 'animate__animated animate__fadeIn' : ''
-      } bg-zinc-700 h-full px-5 rounded-lg pb-5 flex flex-col transition-all`}
+      className={`${setAnimateStartRender ? 'animate__animated animate__fadeIn' : ''
+        } bg-zinc-700 h-full px-5 rounded-lg pb-5 flex flex-col transition-all`}
     >
       <Title>My ToDo List</Title>
       <div className='flex flex-col transition-all flex-wrap'>
@@ -44,6 +42,7 @@ const TodoList = () => {
             date={todo.date}
             bgColor={todo.color}
             editTaskClick={todo}
+            activeFavorit={index}
             deleteTask={() => {
               deletedTask(index)
             }}
@@ -51,6 +50,7 @@ const TodoList = () => {
         ))}
       </div>
       <Add />
+      <Counter />
     </div>
   )
 }

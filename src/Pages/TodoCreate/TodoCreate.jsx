@@ -3,7 +3,7 @@ import { BiArrowBack } from 'react-icons/bi'
 import { Link, useNavigate } from 'react-router-dom'
 import { ContextData } from '../../App'
 import Title from '../../Components/Title/Title'
-import { Input, Select, DatePicker, Button, ColorPicker } from 'antd'
+import { Input, Select, } from 'antd'
 import 'animate.css'
 
 const { TextArea } = Input
@@ -20,7 +20,7 @@ const TodoCreate = () => {
     if (savedTasks) {
       setTaskData(JSON.parse(savedTasks))
     }
-    setAnimateStartRender((prev) => (prev = true))
+    setAnimateStartRender(true)
   }, [])
 
   const [newTask, setNewTask] = useState({
@@ -29,7 +29,7 @@ const TodoCreate = () => {
     body: '',
     category: '',
     date: '',
-    color: '',
+    favorit: false
   })
 
   const submitHandler = (e) => {
@@ -72,6 +72,7 @@ const TodoCreate = () => {
           name='title'
           type='text'
           required
+          autoFocus
           value={newTask.title}
           onChange={(e) => {
             setNewTask((prev) => ({
@@ -130,7 +131,7 @@ const TodoCreate = () => {
         <label htmlFor='date' className=' text-zinc-100 text-xl'>
           Date
         </label>
-        <input className='p-2 mb-6 rounded-md text-lg' type='date' id='date' onChange={(e) => {onChangeDate(e)}} />
+        <input className='p-2 mb-6 rounded-md text-lg' type='date' id='date' onChange={(e) => { onChangeDate(e) }} />
         <button className='w-40 m-auto text-zinc-50 border rounded-md py-2 hover:border-orange-300 hover:text-orange-300 transition-colors'>
           Todo Create
         </button>
