@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useContext, useEffect } from 'react'
 import { BiArrowBack } from 'react-icons/bi'
 import { Link, useNavigate } from 'react-router-dom'
@@ -10,8 +11,8 @@ const { TextArea } = Input
 
 const TodoCreate = () => {
   const [taskData, setTaskData] = useContext(ContextData)
-  const [animateStartRender, setAnimateStartRender] = useState(false)
-  const [getID, setGetId] = useState(0)
+  const [, setAnimateStartRender] = useState(false)
+  const [, setGetId] = useState(0)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const TodoCreate = () => {
       setTaskData(JSON.parse(savedTasks))
     }
     setAnimateStartRender(true)
-  }, [])
+  }, [setTaskData])
 
   const [newTask, setNewTask] = useState({
     id: 0,
@@ -29,7 +30,8 @@ const TodoCreate = () => {
     body: '',
     category: '',
     date: '',
-    favorit: false
+    favorit: false,
+    color: ''
   })
 
   const submitHandler = (e) => {
@@ -56,7 +58,14 @@ const TodoCreate = () => {
   const onChangeDate = (e) => {
     setNewTask(prev => ({
       ...prev,
-      date: e.target.value
+      date: e.target.value.replace('T', '  ')
+    }))
+  }
+
+  const onChangeColor = (e) => {
+    setNewTask(prev => ({
+      ...prev,
+      color: e.target.value
     }))
   }
 
@@ -112,7 +121,7 @@ const TodoCreate = () => {
           options={[
             {
               value: 'Work',
-              label: 'Work edit',
+              label: 'Work',
             },
             {
               value: 'Hobby',
@@ -126,12 +135,37 @@ const TodoCreate = () => {
               value: 'Friends',
               label: 'Friends',
             },
+            {
+              value: 'Family',
+              label: 'Family',
+            },
+            {
+              value: 'Shops',
+              label: 'Shops',
+            },
+            {
+              value: 'Other',
+              label: 'Other',
+            },
           ]}
         />
         <label htmlFor='date' className=' text-zinc-100 text-xl'>
           Date
         </label>
-        <input className='p-2 mb-6 rounded-md text-lg' type='date' id='date' onChange={(e) => { onChangeDate(e) }} />
+        <input className='p-2 rounded-md text-lg' type='datetime-local' id='date' onChange={(e) => { onChangeDate(e) }} />
+        <label className=' text-zinc-100 text-xl' htmlFor="color">Color</label>
+        <select onChange={onChangeColor} className='p-2 mb-6' name="color" id="color">
+          <option value="#1e293b">Gray</option>
+          <option value="#991b1b">Red</option>
+          <option value="#9a3412">Orange</option>
+          <option value="#854d0e">Yellow</option>
+          <option value="#3f6212">Lime</option>
+          <option value="#166534">Green</option>
+          <option value="#115e59">Teal</option>
+          <option value="#1e40af">Blue</option>
+          <option value="#6b21a8">Purple</option>
+          <option value="#9d174d">Pink</option>
+        </select>
         <button className='w-40 m-auto text-zinc-50 border rounded-md py-2 hover:border-orange-300 hover:text-orange-300 transition-colors'>
           Todo Create
         </button>
